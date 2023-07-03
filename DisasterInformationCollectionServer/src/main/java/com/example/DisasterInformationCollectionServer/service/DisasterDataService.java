@@ -1,5 +1,6 @@
 package com.example.DisasterInformationCollectionServer.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -9,8 +10,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 @Service
+@Slf4j
 public class DisasterDataService {
     private static final String API_KEY = "yrTK4nSm8FqY3ZCD5PPkhfn%2FjG9BMYL3CjI3PbCUmx6kUaIpaC6Pnt9a0QdCQ9ogBcLwP8FukYm%2BqDt27It3ig%3D%3D";
     private static final String API_URL = "http://apis.data.go.kr/1741000/DisasterMsg3/getDisasterMsg1List";
@@ -31,35 +34,31 @@ public class DisasterDataService {
     }
 
     public void fetchData() throws IOException {
-        StringBuilder urlBuilder = new StringBuilder(API_URL);
-        urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "=" + API_KEY);
-        urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8"));
-        urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("10", "UTF-8"));
-        urlBuilder.append("&" + URLEncoder.encode("type","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8"));
+        String urlBuilder = API_URL + "?" + URLEncoder.encode("serviceKey", StandardCharsets.UTF_8) + "=" + API_KEY +
+                "&" + URLEncoder.encode("pageNo", StandardCharsets.UTF_8) + "=" + URLEncoder.encode("1", StandardCharsets.UTF_8) +
+                "&" + URLEncoder.encode("numOfRows", StandardCharsets.UTF_8) + "=" + URLEncoder.encode("10", StandardCharsets.UTF_8) +
+                "&" + URLEncoder.encode("type", StandardCharsets.UTF_8) + "=" + URLEncoder.encode("json", StandardCharsets.UTF_8);
 
-        URL url = new URL(urlBuilder.toString());
+        URL url = new URL(urlBuilder);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Content-type", "application/json");
 
         StringBuilder sb = new StringBuilder();
 
-        BufferedReader rd;
-        try {
-            if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
-                rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            } else {
-                rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-            }
+        try (BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
             String line;
             while ((line = rd.readLine()) != null) {
                 sb.append(line);
             }
+        } catch (IOException e) {
+            log.info("에러 발생: ", e);
         } finally {
             conn.disconnect();
         }
 
         String responseData = sb.toString();
         redisTemplate.opsForValue().set(REDIS_KEY, responseData);
+        log.info("redis에 저장됨");
     }
 }

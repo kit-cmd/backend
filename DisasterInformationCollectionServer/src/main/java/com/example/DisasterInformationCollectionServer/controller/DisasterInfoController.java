@@ -35,6 +35,7 @@ public class DisasterInfoController {
     public String getDisasterInfo() {
         // Redis에서 저장된 데이터를 조회하고 필요한 처리를 수행하여 반환하는 로직 작성
         String disasterData = disasterDataService.getDisasterDataFromRedis();
+        log.info("조회 성공");
         // 필요한 데이터 가공 또는 처리 로직 추가
         return disasterData;
     }
