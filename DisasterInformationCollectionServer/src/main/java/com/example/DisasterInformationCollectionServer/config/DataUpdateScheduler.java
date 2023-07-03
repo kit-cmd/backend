@@ -2,6 +2,7 @@ package com.example.DisasterInformationCollectionServer.config;
 
 import com.example.DisasterInformationCollectionServer.service.DisasterDataService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -9,6 +10,7 @@ import java.io.IOException;
 
 @Component
 @Slf4j
+@EnableScheduling
 public class DataUpdateScheduler {
     private final DisasterDataService disasterDataService;
 
@@ -16,9 +18,13 @@ public class DataUpdateScheduler {
         this.disasterDataService = disasterDataService;
     }
 
-    @Scheduled(fixedDelay = 60000) // 1분마다 실행
-    public void updateData() throws IOException {
-        disasterDataService.fetchData();
-        log.info("1분마다 갱신 성공");
+    @Scheduled(fixedDelay = 180000) // 3분마다 실행
+    public void updateData() {
+        try {
+            disasterDataService.fetchData();
+            log.info("스케쥴러 호출 성공");
+        } catch (IOException e) {
+            log.info("스케쥴러 호출 중 예외 발생", e);
+        }
     }
 }
