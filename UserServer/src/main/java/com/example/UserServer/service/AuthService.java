@@ -1,9 +1,6 @@
 package com.example.UserServer.service;
 
-import com.example.UserServer.dto.MemberRequestDto;
-import com.example.UserServer.dto.MemberResponseDto;
-import com.example.UserServer.dto.TokenRequestDto;
-import com.example.UserServer.dto.TokenDto;
+import com.example.UserServer.dto.*;
 import com.example.UserServer.entity.Member;
 import com.example.UserServer.entity.RefreshToken;
 import com.example.UserServer.jwt.TokenProvider;
@@ -37,7 +34,7 @@ public class AuthService {
     }
 
     @Transactional
-    public TokenDto login(MemberRequestDto memberRequestDto) {
+    public MemberLoginResponseDto login(MemberRequestDto memberRequestDto) {
         // 1. Login ID/PW 를 기반으로 AuthenticationToken 생성
         UsernamePasswordAuthenticationToken authenticationToken = memberRequestDto.toAuthentication();
 
@@ -56,8 +53,13 @@ public class AuthService {
 
         refreshTokenRepository.save(refreshToken);
 
-        // 5. 토큰 발급
-        return tokenDto;
+        // 5. 토큰 발급 및 프로필 정보 반환
+        MemberLoginResponseDto memberLoginResponseDto = MemberLoginResponseDto.of(memberRepository.findByEmail(memberRequestDto.getEmail())
+                .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다.")));
+
+        memberLoginResponseDto.setTokenDto(tokenDto);
+
+        return memberLoginResponseDto;
     }
 
     @Transactional

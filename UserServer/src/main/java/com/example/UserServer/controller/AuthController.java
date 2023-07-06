@@ -1,10 +1,7 @@
 package com.example.UserServer.controller;
 
 
-import com.example.UserServer.dto.MemberRequestDto;
-import com.example.UserServer.dto.MemberResponseDto;
-import com.example.UserServer.dto.TokenRequestDto;
-import com.example.UserServer.dto.TokenDto;
+import com.example.UserServer.dto.*;
 import com.example.UserServer.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +25,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<TokenDto> login(@RequestBody MemberRequestDto memberRequestDto) {
+    public ResponseEntity<MemberLoginResponseDto> login(@RequestBody MemberRequestDto memberRequestDto) {
         return ResponseEntity.ok(authService.login(memberRequestDto));
     }
 
