@@ -25,6 +25,9 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'com.opencsv:opencsv:5.5'
+	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.13.0'
+	implementation 'org.json:json:20210307'
 }
 
 tasks.named('test') {

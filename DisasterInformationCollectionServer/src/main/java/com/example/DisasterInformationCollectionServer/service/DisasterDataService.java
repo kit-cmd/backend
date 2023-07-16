@@ -15,9 +15,9 @@ import java.nio.charset.StandardCharsets;
 @Service
 @Slf4j
 public class DisasterDataService {
-    private static final String API_KEY = "yrTK4nSm8FqY3ZCD5PPkhfn%2FjG9BMYL3CjI3PbCUmx6kUaIpaC6Pnt9a0QdCQ9ogBcLwP8FukYm%2BqDt27It3ig%3D%3D";
-    private static final String API_URL = "http://apis.data.go.kr/1741000/DisasterMsg3/getDisasterMsg1List";
-    private static final String REDIS_KEY = "disasterData";
+    private final static String API_KEY = "yrTK4nSm8FqY3ZCD5PPkhfn%2FjG9BMYL3CjI3PbCUmx6kUaIpaC6Pnt9a0QdCQ9ogBcLwP8FukYm%2BqDt27It3ig%3D%3D";
+    private final static String API_URL = "http://apis.data.go.kr/1741000/DisasterMsg3/getDisasterMsg1List";
+    private final static String REDIS_KEY = "disasterData";
 
 
     private final RedisTemplate<String, String> redisTemplate;
@@ -29,14 +29,14 @@ public class DisasterDataService {
     public String getDisasterDataFromRedis() {
         String key = REDIS_KEY; // Redis에서 사용하는 키(Key)
         Object data = redisTemplate.opsForValue().get(key); // Redis에서 데이터 조회
-
+        log.info("정상적으로 redis 조회: {}", data);
         return String.valueOf(data);
     }
 
     public void fetchData() throws IOException {
         String urlBuilder = API_URL + "?" + URLEncoder.encode("serviceKey", StandardCharsets.UTF_8) + "=" + API_KEY +
                 "&" + URLEncoder.encode("pageNo", StandardCharsets.UTF_8) + "=" + URLEncoder.encode("1", StandardCharsets.UTF_8) +
-                "&" + URLEncoder.encode("numOfRows", StandardCharsets.UTF_8) + "=" + URLEncoder.encode("10", StandardCharsets.UTF_8) +
+                "&" + URLEncoder.encode("numOfRows", StandardCharsets.UTF_8) + "=" + URLEncoder.encode("1", StandardCharsets.UTF_8) +
                 "&" + URLEncoder.encode("type", StandardCharsets.UTF_8) + "=" + URLEncoder.encode("json", StandardCharsets.UTF_8);
 
         URL url = new URL(urlBuilder);
@@ -52,13 +52,13 @@ public class DisasterDataService {
                 sb.append(line);
             }
         } catch (IOException e) {
-            log.info("에러 발생: ", e);
+            log.info("에러 발생: {}", e);
         } finally {
             conn.disconnect();
         }
 
         String responseData = sb.toString();
         redisTemplate.opsForValue().set(REDIS_KEY, responseData);
-        log.info("redis에 저장됨");
+        log.info("redis에 저장됨:{}", responseData);
     }
 }
