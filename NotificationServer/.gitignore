@@ -25,8 +25,7 @@ bin/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
-*.iml
-*.idea
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
@@ -39,5 +38,3 @@ out/
 
 ### 환경변수 ###
 *.yml
-disasterweb.json
-
