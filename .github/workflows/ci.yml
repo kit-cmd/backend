@@ -25,6 +25,7 @@ jobs:
           for server in "DisasterInformationCollectionServer" "NotificationServer" "UserServer"; do
             cd "$server"
             chmod +x ./gradlew
-            ./gradlew build
+            ./gradlew clean build
+            ./gradlew test --info
             cd ..
           done
