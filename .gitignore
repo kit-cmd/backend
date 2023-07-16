@@ -38,6 +38,6 @@ out/
 .vscode/
 
 ### 환경변수 ###
-*.yml
+application.yml
 disasterweb.json
 
