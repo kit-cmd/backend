@@ -5,19 +5,27 @@ import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.json.JSONParser;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Slf4j
 public class SubscribeService {
 
     private final RedisMessageListenerContainer redisMessageListenerContainer;
+    private final NotificationService notificationService;
 
-    public SubscribeService(RedisMessageListenerContainer redisMessageListenerContainer) {
+    public SubscribeService(RedisMessageListenerContainer redisMessageListenerContainer, NotificationService notificationService) {
         this.redisMessageListenerContainer = redisMessageListenerContainer;
+        this.notificationService = notificationService;
     }
 
     public void start() {
@@ -31,23 +39,35 @@ public class SubscribeService {
     }
 
     private void sendNotification(String data) {
-        // Customize the notification payload as per your requirements
-        Notification notification = Notification.builder()
-                .setTitle("Title")
-                .setBody("Body")
-                .build();
-
-        Message notificationMessage = Message.builder()
-                .setNotification(notification)
-                .putData("data", data)
-                .setTopic("change")
-                .build();
+        JSONObject jsonDataObject = new JSONObject(data);
+        JSONArray disasterMsgArray = jsonDataObject.getJSONArray("DisasterMsg");
+        JSONArray rowArray = disasterMsgArray.getJSONObject(1).getJSONArray("row"); // 변경된 부분
+        JSONObject rowObject = rowArray.getJSONObject(0);
+        String msg = rowObject.getString("msg");
+        log.info("msg: {}", msg);
 
         try {
-            String response = FirebaseMessaging.getInstance().send(notificationMessage);
-            log.info("알림을 정상적으로 전송했습니다.: {}", response);
-        } catch (FirebaseMessagingException e) {
-            log.error("알림 전송 실패: {}", e.getMessage());
+            Notification notification = Notification.builder()
+                    .setTitle("실시간 재난 알림")
+                    .setBody(msg) // Use the "msg" as the notification body
+                    .build();
+
+            List<String> tokens = notificationService.getToken();
+            for (String token : tokens) {
+                Message notificationMessage = Message.builder()
+                        .setNotification(notification)
+                        .setToken(token)
+                        .build();
+
+                try {
+                    String response = FirebaseMessaging.getInstance().send(notificationMessage);
+                    log.info("알림을 정상적으로 전송했습니다.: {}", response);
+                } catch (FirebaseMessagingException e) {
+                    log.error("알림 전송 실패: {}", e.getMessage());
+                }
+            }
+        } catch (JSONException e) {
+            log.error("Error parsing JSON data: {}", e.getMessage());
         }
     }
 }

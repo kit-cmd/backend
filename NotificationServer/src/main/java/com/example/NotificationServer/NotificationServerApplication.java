@@ -1,6 +1,7 @@
 package com.example.NotificationServer;
 
 import com.example.NotificationServer.config.RedisConfig;
+import com.example.NotificationServer.service.NotificationService;
 import com.example.NotificationServer.service.SubscribeService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,7 +16,8 @@ public class NotificationServerApplication {
 	public static void main(String[] args) {
 		ConfigurableApplicationContext context = SpringApplication.run(NotificationServerApplication.class, args);
 		RedisMessageListenerContainer redisMessageListenerContainer = context.getBean(RedisMessageListenerContainer.class);
-		SubscribeService subscribeService = new SubscribeService(redisMessageListenerContainer);
+		NotificationService notificationService = context.getBean(NotificationService.class);
+		SubscribeService subscribeService = new SubscribeService(redisMessageListenerContainer, notificationService);
 		subscribeService.start();
 	}
 
