@@ -47,7 +47,34 @@ public class DataUpdateScheduler {
 ### redis를 메세지 브러커 형식으로 사용하여 알림 → 메세지 pub/sub구조인데 이는 데이터를 저장하지 않음
 재난 정보를 수집하여 새로 업데이트 된 내용을 pub 요청
 ```
-코드 예정
+public void fetchData() throws IOException {
+        String urlBuilder = API_URL + "?" + URLEncoder.encode("serviceKey", StandardCharsets.UTF_8) + "=" + API_KEY +
+                "&" + URLEncoder.encode("pageNo", StandardCharsets.UTF_8) + "=" + URLEncoder.encode("1", StandardCharsets.UTF_8) +
+                "&" + URLEncoder.encode("numOfRows", StandardCharsets.UTF_8) + "=" + URLEncoder.encode("1", StandardCharsets.UTF_8) +
+                "&" + URLEncoder.encode("type", StandardCharsets.UTF_8) + "=" + URLEncoder.encode("json", StandardCharsets.UTF_8);
+
+        URL url = new URL(urlBuilder);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("GET");
+        conn.setRequestProperty("Content-type", "application/json");
+
+        StringBuilder sb = new StringBuilder();
+
+        try (BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
+            String line;
+            while ((line = rd.readLine()) != null) {
+                sb.append(line);
+            }
+        } catch (IOException e) {
+            log.info("에러 발생: {}", e);
+        } finally {
+            conn.disconnect();
+        }
+
+        String responseData = sb.toString();
+        redisTemplate.opsForValue().set(REDIS_KEY, responseData);
+        log.info("redis에 저장됨:{}", responseData);
+    }
 ```
 
 
