@@ -17,7 +17,7 @@
 ![아키텍처](https://github.com/kit-cmd/backend/assets/102667851/77b4910a-8076-4433-a921-c08eefd6a043)
 
 ## ERD
-![유저서버ERD](https://github.com/kit-cmd/backend/assets/102667851/ac26796e-df48-46e9-839f-89cf91908ccd)
+![유저서버erd](https://github.com/kit-cmd/backend/assets/102667851/462a335d-7471-4569-9ccc-55445a9a36dd)
 
 
 ## 제공 기능
