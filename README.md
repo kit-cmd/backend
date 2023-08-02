@@ -26,14 +26,13 @@
 - Spring Data JPA
 - Spring Security
 - Spring Integration
-- 
+
 ### Infrastructure
 - MySQL
-- MongoDB
 - Redis
-- Kurento Media Server(예정)
 - AWS
 - github Action
+- docker
 
 ## 역할 분담
 ### 박규현
