@@ -17,16 +17,20 @@ jobs:
     - name: Build and test
       run: |
         cd DisasterInformationCollectionServer
-        ./mvnw clean package
+        chmod +x gradlew
+        ./gradlew clean build
 
         cd ../NotificationServer
-        ./mvnw clean package
+        chmod +x gradlew
+        ./gradlew clean build
 
         cd ../ShelterInfoServer
-        ./mvnw clean package
+        chmod +x gradlew
+        ./gradlew clean build
 
         cd ../UserServer
-        ./mvnw clean package
+        chmod +x gradlew
+        ./gradlew clean build
 
   deploy:
     runs-on: ubuntu-latest
