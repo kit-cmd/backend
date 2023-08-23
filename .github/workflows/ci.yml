@@ -15,6 +15,19 @@ jobs:
       DATABASE_USERNAME: ${{secrets.DATABASE_USERNAME}}
       JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: 1234
+          MYSQL_DATABASE: hanium  # Replace with your database name
+          MYSQL_USER: ${{secrets.DATABASE_USERNAME}}
+          MYSQL_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+  
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
