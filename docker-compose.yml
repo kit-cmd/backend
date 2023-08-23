@@ -1,0 +1,22 @@
+version: '3'
+services:
+  DisasterInformationCollectionServer:
+    build:
+      context: ./DisasterInformationCollectionServer
+    ports:
+      - "8081:8080"
+  NotificationServer:
+    build:
+      context: ./NotificationServer
+    ports:
+      - "8082:8080"
+  ShelterInfoServer:
+    build:
+      context: ./ShelterInfoServer
+    ports:
+      - "8083:8080"
+  UserServer:
+    build:
+      context: ./UserServer
+    ports:
+      - "8084:8080"
