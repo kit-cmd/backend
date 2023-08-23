@@ -1,0 +1,9 @@
+server:
+  port: 8081
+spring:
+  logging:
+    level:
+      root: DEBUG
+  redis:
+    host: localhost
+    port: 6379

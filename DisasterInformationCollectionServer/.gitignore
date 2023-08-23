@@ -36,6 +36,3 @@ out/
 ### VS Code ###
 .vscode/
 
-### 환경변수 ###
-*.yml
-disaster-web-1e678-firebase-adminsdk-q8ndl-37edd7a6cb.json
