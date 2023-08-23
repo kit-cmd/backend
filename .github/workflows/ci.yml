@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
@@ -13,7 +13,7 @@ jobs:
     env:
       DATABASE_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
       DATABASE_USERNAME: ${{secrets.DATABASE_USERNAME}}
-      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      JWT_SECRET: ${{secrets.JWT_SECRET}}
 
     services:
       mysql:
@@ -23,7 +23,6 @@ jobs:
           MYSQL_DATABASE: hanium  # Replace with your database name
           MYSQL_USER: ${{secrets.DATABASE_USERNAME}}
           MYSQL_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
