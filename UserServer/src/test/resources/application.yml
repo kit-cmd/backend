@@ -1,0 +1,28 @@
+spring:
+    datasource:
+        url: jdbc:mysql://localhost:3306/hanium
+        username: root
+        password: ${DATABASE_PASSWORD}
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    jpa:
+        database: mysql
+        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+        hibernate:
+            ddl-auto: create-drop  # 서버가 켜져있는 동안만 유지
+        properties:
+            hibernate:
+                format_sql: true  # SQL pretty print
+                show-sql: true
+    webmvc:
+        cors:
+            allowed-origins: http://localhost:3000
+            allowed-methods: GET,POST,UPDATE
+            allowed-headers: "*"
+            allow-credentials: true
+
+logging:
+    level:
+        root: debug
+
+jwt:
+    secret: ${JWT_SECRET}
