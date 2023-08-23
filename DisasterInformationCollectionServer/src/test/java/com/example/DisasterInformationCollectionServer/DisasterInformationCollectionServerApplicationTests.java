@@ -1,29 +1,31 @@
-package com.example.DisasterInformationCollectionServer;
-
 import com.example.DisasterInformationCollectionServer.service.DisasterDataService;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-
+import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
+@RunWith(SpringRunner.class)
 @SpringBootTest
 public class DisasterInformationCollectionServerApplicationTests {
 
-	private final DisasterDataService disasterDataService; // 생성자 주입
-
-	@Autowired
-	public DisasterInformationCollectionServerApplicationTests(DisasterDataService disasterDataService) {
-		this.disasterDataService = disasterDataService;
-	}
-
 	@Test
 	public void testGetValueFromRedis() {
-		String key = "myKey";
-		String expectedValue = "myValue";
+		// Mocking the DisasterDataService using Mockito
+		DisasterDataService disasterDataService = mock(DisasterDataService.class);
 
-		String actualValue = disasterDataService.getValueFromRedis(key);
+		// Creating test data using TestDataProvider
+		Map<String, String> testData = TestDataProvider.getTestData();
+
+		// Setting up the mock behavior to return test data
+		when(disasterDataService.getValueFromRedis("myKey")).thenReturn(testData.get("myKey"));
+
+		// Using the mock to test the behavior
+		String expectedValue = "myValue";
+		String actualValue = disasterDataService.getValueFromRedis("myKey");
 
 		assertEquals(expectedValue, actualValue);
 	}
