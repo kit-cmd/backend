@@ -34,6 +34,8 @@ dependencies {
 	// redis
 	implementation 'org.redisson:redisson:3.16.3'
 	implementation group: 'org.json', name: 'json', version: '20230618'
+	testImplementation 'it.ozimov:spring-boot-email-core:0.6.0' // Embedded Redis를 지원하는 라이브러리
+	testImplementation 'org.springframework.data:spring-data-redis'
 }
 
 tasks.named('test') {
