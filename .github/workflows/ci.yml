@@ -2,22 +2,28 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     env:
-      DATABASE_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
-      DATABASE_USERNAME: ${{secrets.DATABASE_USERNAME}}
-      JWT_SECRET: ${{ secrets.JWT_SECRET }}
-
+      JWT_SECRET: ${{secrets.JWT_SECRET}}
+  
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+
+    - name: Setup MySQL
+      uses: samin/mysql-action@v1
+      with:
+        character set server: 'utf8'
+        mysql database: 'hanium'
+        mysql user: 'test'
+        mysql password: ${{ secrets.DATABASE_PASSWORD }}
 
     - name: Build and test
       run: |
@@ -29,13 +35,14 @@ jobs:
         chmod +x gradlew
         ./gradlew clean build
 
+        cd ../UserServer
+        chmod +x gradlew
+        ./gradlew clean build
+
         cd ../ShelterInfoServer
         chmod +x gradlew
         ./gradlew clean build
 
-        cd ../UserServer
-        chmod +x gradlew
-        ./gradlew clean build
 
   deploy:
     runs-on: ubuntu-latest

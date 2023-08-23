@@ -1,8 +1,8 @@
 spring:
     datasource:
         url: jdbc:mysql://localhost:3306/hanium
-        username: ${DATABASE_USERNAME}
-        password: ${DATABASE_PASSWORD}
+        username: test
+        password: 1234
         driver-class-name: com.mysql.cj.jdbc.Driver
     jpa:
         database: mysql
@@ -25,4 +25,4 @@ logging:
         root: debug
 
 jwt:
-    secret: ${JWT_SECRET}
+    secret: 951ff84d4cc900bc82318cdc73025f5766a44d98e1fb0c9ed669628ad84440989b25194b577333b76c669ef13656461ec54731482a4141a63240d3aa21a57da7
