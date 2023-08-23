@@ -3,6 +3,7 @@ package com.example.DisasterInformationCollectionServer.service;
 import java.util.HashMap;
 import java.util.Map;
 
+@Service
 public class TestDataProvider {
     public static Map<String, String> getTestData() {
         Map<String, String> testData = new HashMap<>();
