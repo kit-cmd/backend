@@ -2,15 +2,18 @@ package com.example.DisasterInformationCollectionServer;
 
 import com.example.DisasterInformationCollectionServer.service.DisasterDataService;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class DisasterInformationCollectionServerApplicationTests {
 
 	private final DisasterDataService disasterDataService; // 생성자 주입
 
+	@Autowired
 	public DisasterInformationCollectionServerApplicationTests(DisasterDataService disasterDataService) {
 		this.disasterDataService = disasterDataService;
 	}
@@ -20,7 +23,7 @@ public class DisasterInformationCollectionServerApplicationTests {
 		String key = "myKey";
 		String expectedValue = "myValue";
 
-		String actualValue = disasterDataService.getValueFromRedis(key); // 수정 필요
+		String actualValue = disasterDataService.getValueFromRedis(key);
 
 		assertEquals(expectedValue, actualValue);
 	}
