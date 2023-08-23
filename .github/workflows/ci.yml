@@ -17,15 +17,19 @@ jobs:
     - name: Build and test
       run: |
         cd DisasterInformationCollectionServer
+        chmod +x gradlew
         ./gradlew clean build
 
         cd ../NotificationServer
+        chmod +x gradlew
         ./gradlew clean build
 
         cd ../ShelterInfoServer
+        chmod +x gradlew
         ./gradlew clean build
 
         cd ../UserServer
+        chmod +x gradlew
         ./gradlew clean build
 
   deploy:
