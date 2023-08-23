@@ -33,6 +33,14 @@ public class DisasterDataService {
         return String.valueOf(data);
     }
 
+    // 테스트 코드용
+    public String getValueFromRedis(String key) {
+        // 실제 Redis 데이터 조회 로직
+        Object data = redisTemplate.opsForValue().get(key);
+        log.info("정상적으로 redis 조회: {}", data);
+        return String.valueOf(data);
+    }
+
     public void fetchData() throws IOException {
         String urlBuilder = API_URL + "?" + URLEncoder.encode("serviceKey", StandardCharsets.UTF_8) + "=" + API_KEY +
                 "&" + URLEncoder.encode("pageNo", StandardCharsets.UTF_8) + "=" + URLEncoder.encode("1", StandardCharsets.UTF_8) +
