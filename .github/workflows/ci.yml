@@ -29,13 +29,14 @@ jobs:
         chmod +x gradlew
         ./gradlew clean build
 
+        cd ../UserServer
+        chmod +x gradlew
+        ./gradlew clean build
+
         cd ../ShelterInfoServer
         chmod +x gradlew
         ./gradlew clean build
 
-        cd ../UserServer
-        chmod +x gradlew
-        ./gradlew clean build
 
   deploy:
     runs-on: ubuntu-latest
