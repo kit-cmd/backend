@@ -3,6 +3,8 @@ package com.example.DisasterInformationCollectionServer.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
+
 @Service
 public class TestDataProvider {
     public static Map<String, String> getTestData() {
