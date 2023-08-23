@@ -12,19 +12,24 @@ jobs:
 
     env:
       DATABASE_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
-      DATABASE_USERNAME: ${{secrets.DATABASE_USERNAME}}
+      DATABASE_USERNAME: test
       JWT_SECRET: ${{secrets.JWT_SECRET}}
 
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: rootpassword
+          MYSQL_DATABASE: hanium
+          MYSQL_USER: test
+          MYSQL_PASSWORD: 1234
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+  
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-
-    - name: Setup MySQL
-      uses: mirromutth/mysql-action@v1.1
-      with:
-        mysql database: 'hanium' 
-        mysql user: 'test'
-        mysql password: ${{ secrets.DATABASE_PASSWORD }}
 
     - name: Build and test
       run: |
