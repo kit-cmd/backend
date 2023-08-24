@@ -54,6 +54,7 @@ jobs:
 
     - name: Build and push Docker images
       run: |
+        echo "Current directory: $(pwd)"
         cd ..
         docker-compose -f docker-compose.yml build
         docker-compose -f docker-compose.yml push
