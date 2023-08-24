@@ -35,11 +35,11 @@ jobs:
         chmod +x gradlew
         ./gradlew clean build
 
-        cd ../UserServer
+        cd ../ShelterInfoServer
         chmod +x gradlew
         ./gradlew clean build
 
-        cd ../ShelterInfoServer
+        cd ../UserServer
         chmod +x gradlew
         ./gradlew clean build
 
