@@ -2,25 +2,25 @@ version: '3'
 services:
   DisasterInformationCollectionServer:
     build:
-      context: ../DisasterInformationCollectionServer
+      context: DisasterInformationCollectionServer
     image: disaster-information-collection-server:latest
     ports:
       - "8081:8080"
   NotificationServer:
     build:
-      context: ../NotificationServer
+      context: NotificationServer
     image: notification-server:latest
     ports:
       - "8082:8080"
   ShelterInfoServer:
     build:
-      context: ../ShelterInfoServer
+      context: ShelterInfoServer
     image: shelter-info-server:latest
     ports:
       - "8083:8080"
   UserServer:
     build:
-      context: ../UserServer
+      context: UserServer
     image: user-server:latest
     ports:
       - "8084:8080"
