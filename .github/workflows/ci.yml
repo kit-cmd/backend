@@ -17,13 +17,13 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Setup MySQL
-      uses: samin/mysql-action@v1
-      with:
-        character set server: 'utf8'
-        mysql database: 'hanium'
-        mysql user: 'test'
-        mysql password: ${{ secrets.DATABASE_PASSWORD }}
+    # - name: Setup MySQL
+    #   uses: samin/mysql-action@v1
+    #   with:
+    #     character set server: 'utf8'
+    #     mysql database: 'hanium'
+    #     mysql user: 'root'
+    #     mysql password: ${{ secrets.DATABASE_PASSWORD }}
 
     - name: Build and test
       run: |
