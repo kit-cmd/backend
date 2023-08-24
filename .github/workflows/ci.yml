@@ -54,5 +54,5 @@ jobs:
 
     - name: Build and push Docker images
       run: |
-        docker build -f Dockerfile -t ${{ secrets.DATABASE_USERNAME }}/backend .
-        docker push ${{ secrets.DATABASE_USERNAME }}/backend
+        docker-compose -f docker-compose.yml build
+        docker-compose -f docker-compose.yml push
