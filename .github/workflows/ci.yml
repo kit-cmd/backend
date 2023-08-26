@@ -96,6 +96,7 @@ jobs:
         key : ${{ secrets.EC2_PRIVATE_KEY }}
         script :
           |
+          echo "${{ secrets.COMPOSE_YML }}" > docker-compose.yml  
           docker-compose down  
           docker-compose pull  
           docker-compose up --build --force-recreate  
