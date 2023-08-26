@@ -96,6 +96,7 @@ jobs:
         key : ${{ secrets.EC2_PRIVATE_KEY }}
         script :
           |
-          sudo apt-get update && sudo apt-get install docker.io docker-compose -y
-          scp -r backend ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USERNAME }}/backend    
-          ssh ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "cd /home/${{ secrets.EC2_USERNAME }}/backend && docker-compose up --build --force-recreate" 
+          cd /home/${{ secrets.EC2_USERNAME }}/backend
+          docker-compose down
+          docker-compose pull
+          docker-compose up --build --force-recreate 
