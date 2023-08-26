@@ -61,6 +61,8 @@ jobs:
       with :
         name : compiled-application 
 
+    - run: ls -R
+
     - run : |
         mv DisasterInformationCollectionServer*.jar DisasterInformationCollectionServer/disaster-info-collection-server.jar   
         mv Notification*.jar Notification/disaster-notification-server.jar   
