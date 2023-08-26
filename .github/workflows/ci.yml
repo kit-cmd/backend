@@ -35,7 +35,17 @@ jobs:
         cd ../UserServer
         chmod +x gradlew
         ./gradlew clean build
-        cd ..
+        
+
+    - name: Archive production artifacts 
+      uses: actions/upload-artifact@v2 
+      with:
+        name: compiled-application 
+        path : |
+          DisasterInformationCollectionServer/build/libs/*.jar 
+          NotificationServer/build/libs/*.jar 
+          ShelterInfoServer/build/libs/*.jar 
+          UserServer/build/libs/*.jar 
 
   deploy:
     runs-on: ubuntu-latest
@@ -45,6 +55,17 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+
+    - name : Download built application jar files from artifacts.
+      uses : actions/download-artifact@v2 
+      with :
+        name : compiled-application 
+
+    - run : |
+        mv DisasterInformationCollectionServer*.jar DisasterInformationCollectionServer/disaster-info-collection-server.jar   
+        mv Notification*.jar Notification/disaster-notification-server.jar   
+        mv ShelterInfo*.jar ShelterInfo/disaster-shelterinfo-server.jar   
+        mv User*.jar User/disaster-user-server.jar   
 
     - name: Set up Docker
       uses: docker/login-action@v1
