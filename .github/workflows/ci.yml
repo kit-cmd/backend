@@ -74,7 +74,7 @@ jobs:
         cd ../../../NotificationServer/build/libs
         mv NotificationServer-0.0.1-SNAPSHOT.jar disaster-notification-server.jar   
         cd ../../../ShelterInfoServer/build/libs
-        mv ShelterInfo-0.0.1-SNAPSHOT.jar disaster-shelterinfo-server.jar   
+        mv shelter-0.0.1-SNAPSHOT.jar disaster-shelterinfo-server.jar   
         cd ../../../UserServer/build/libs
         mv UserServer-0.0.1-SNAPSHOT.jar disaster-user-server.jar
 
