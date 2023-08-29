@@ -60,10 +60,10 @@
       with:
         java-version: '11'
         distribution: 'zulu'```
-  - MySQL 적용 실패
-    - AWS RDS로 변경하여 해결
-  - Docker 경로 관련 이슈
-  - ec2 배포 실패(현재 해결중)
+- MySQL 적용 실패
+  - AWS RDS로 변경하여 해결
+- Docker 경로 관련 이슈
+- ec2 배포 실패(현재 해결중)
 
 <!-- Icon Refernces -->
 [kyu]: https://user-images.githubusercontent.com/102667851/230325642-ba742aed-6f63-469c-bfb6-b5aefcf2d967.png
