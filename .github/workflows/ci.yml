@@ -88,7 +88,8 @@ jobs:
         docker-compose -f docker-compose.yml build
         docker-compose -f docker-compose.yml push
     
-    - run: ls -l
+    - name: check path
+      run: ls -l
 
     - name: SSH into EC2 and deploy DisasterInformationCollectionServer
       uses: appleboy/ssh-action@master
@@ -102,7 +103,8 @@ jobs:
           docker-compose pull
           docker-compose up --build --force-recreate
     
-    - run: ls -l
+    - name: check path
+      run: ls -l
             
     - name: SSH into EC2 and deploy NotificationServer
       uses: appleboy/ssh-action@master
@@ -116,7 +118,8 @@ jobs:
           docker-compose pull
           docker-compose up --build --force-recreate
     
-    - run: ls -l
+    - name: check path
+      run: ls -l
     
     - name: SSH into EC2 and deploy ShelterInfoServer
       uses: appleboy/ssh-action@master
@@ -130,7 +133,9 @@ jobs:
           docker-compose pull
           docker-compose up --build --force-recreate
           
-    - run: ls -l
+    - name: check path
+      run: ls -l
+
     - name: SSH into EC2 and deploy UserServer
       uses: appleboy/ssh-action@master
       with:
@@ -142,5 +147,6 @@ jobs:
           docker-compose down
           docker-compose pull
           docker-compose up --build --force-recreate
-    - run: ls -l
+    - name: check path
+      run: ls -l
     
