@@ -49,6 +49,22 @@
 [📒노션 페이지](https://www.notion.so/ICT-d4c12cd695e646348ff91f7086f911c4)
 
 
+## 프로젝트중 이슈 발생 (통합)
+***개별 이슈는 각 폴더에 README.md 파일로 첨부하였습니다.***
+### CI/CD 적용 문제 (githubaction + Docker + Docker-Compose + ec2)
+- redis 적용 실패
+  - redis를 githubaction으로 ci 적용을 위해서는 Embedded Redis를 사용해야함 (테스트를 위함)
+- java 버전 설정
+  -  ```name: Set up JDK 11
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+        distribution: 'zulu'```
+  - MySQL 적용 실패
+    - AWS RDS로 변경하여 해결
+  - Docker 경로 관련 이슈
+  - ec2 배포 실패(현재 해결중)
+
 <!-- Icon Refernces -->
 [kyu]: https://user-images.githubusercontent.com/102667851/230325642-ba742aed-6f63-469c-bfb6-b5aefcf2d967.png
 [young]: https://user-images.githubusercontent.com/102667851/230325661-48c39145-28f7-40d5-ac5e-79838bcb3d8b.png
