@@ -88,15 +88,51 @@ jobs:
         docker-compose -f docker-compose.yml build
         docker-compose -f docker-compose.yml push
 
-    - name : SSH into EC2 and deploy   
-      uses : appleboy/ssh-action@master   
-      with :
-        host   : ${{ secrets.EC2_HOST }}
-        username   : ${{ secrets.EC2_USERNAME }}
-        key : ${{ secrets.EC2_PRIVATE_KEY }}
-        script :
-          |
-          cd /home/ubuntu/backend
+        - name: SSH into EC2 and deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          script: |
+            cd /home/${{secrets.EC2_USERNAME}}/backend/DisasterInformationCollectionServer
+            docker-compose down
+            docker-compose pull
+            docker-compose up --build --force-recreate
+            
+    - name: SSH into EC2 and deploy NotificationServer
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_PRIVATE_KEY }}
+        script: |
+          cd /home/${{secrets.EC2_USERNAME}}/backend/NotificationServer
           docker-compose down
           docker-compose pull
-          docker-compose up --build --force-recreate 
+          docker-compose up --build --force-recreate
+    
+    - name: SSH into EC2 and deploy ShelterInfoServer
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_PRIVATE_KEY }}
+        script: |
+          cd /home/${{secrets.EC2_USERNAME}}/backend/ShelterInfoServer
+          docker-compose down
+          docker-compose pull
+          docker-compose up --build --force-recreate
+          
+    - name: SSH into EC2 and deploy UserServer
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_PRIVATE_KEY }}
+        script: |
+          cd /home/${{secrets.EC2_USERNAME}}/backend/UserServer
+          docker-compose down
+          docker-compose pull
+          docker-compose up --build --force-recreate
+    
