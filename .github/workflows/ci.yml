@@ -94,11 +94,14 @@ jobs:
     - name: SSH into EC2 and deploy DisasterInformationCollectionServer
       uses: appleboy/ssh-action@master
       with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ap-northeast-2
         host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.EC2_PRIVATE_KEY }}
         script: |
-          cd /home/${{secrets.EC2_USERNAME}}/backend/DisasterInformationCollectionServer
+          cd /home/${{secrets.EC2_USERNAME}}/hanium/backend/DisasterInformationCollectionServer
           docker-compose down
           docker-compose pull
           docker-compose up --build --force-recreate
@@ -109,11 +112,14 @@ jobs:
     - name: SSH into EC2 and deploy NotificationServer
       uses: appleboy/ssh-action@master
       with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ap-northeast-2
         host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.EC2_PRIVATE_KEY }}
         script: |
-          cd /home/${{secrets.EC2_USERNAME}}/backend/NotificationServer
+          cd /home/${{secrets.EC2_USERNAME}}/hanium/backend/NotificationServer
           docker-compose down
           docker-compose pull
           docker-compose up --build --force-recreate
@@ -124,11 +130,14 @@ jobs:
     - name: SSH into EC2 and deploy ShelterInfoServer
       uses: appleboy/ssh-action@master
       with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ap-northeast-2
         host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.EC2_PRIVATE_KEY }}
         script: |
-          cd /home/${{secrets.EC2_USERNAME}}/backend/ShelterInfoServer
+          cd /home/${{secrets.EC2_USERNAME}}/hanium/backend/ShelterInfoServer
           docker-compose down
           docker-compose pull
           docker-compose up --build --force-recreate
@@ -139,11 +148,14 @@ jobs:
     - name: SSH into EC2 and deploy UserServer
       uses: appleboy/ssh-action@master
       with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ap-northeast-2
         host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.EC2_PRIVATE_KEY }}
         script: |
-          cd /home/${{secrets.EC2_USERNAME}}/backend/UserServer
+          cd /home/${{secrets.EC2_USERNAME}}/hanium/backend/UserServer
           docker-compose down
           docker-compose pull
           docker-compose up --build --force-recreate
