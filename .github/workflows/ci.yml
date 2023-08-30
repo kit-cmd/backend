@@ -102,9 +102,6 @@ jobs:
           docker-compose down
           docker-compose pull
           docker-compose up --build --force-recreate
-    
-    - name: check path
-      run: ls -R
             
     - name: SSH into EC2 and deploy NotificationServer
       uses: appleboy/ssh-action@master
@@ -117,10 +114,7 @@ jobs:
           docker-compose down
           docker-compose pull
           docker-compose up --build --force-recreate
-    
-    - name: check path
-      run: ls -R
-    
+
     - name: SSH into EC2 and deploy ShelterInfoServer
       uses: appleboy/ssh-action@master
       with:
@@ -132,9 +126,6 @@ jobs:
           docker-compose down
           docker-compose pull
           docker-compose up --build --force-recreate
-          
-    - name: check path
-      run: ls -R
 
     - name: SSH into EC2 and deploy UserServer
       uses: appleboy/ssh-action@master
@@ -147,6 +138,3 @@ jobs:
           docker-compose down
           docker-compose pull
           docker-compose up --build --force-recreate
-    - name: check path
-      run: ls -R
-    
