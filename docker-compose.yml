@@ -5,10 +5,10 @@ services:
       context: ./DisasterInformationCollectionServer
     image: freemoon99/disaster-information-collection-server:latest
     ports:
-      - "8081:8080"
+      - "8081:8081"
   NotificationServer:
     build:
       context: ./NotificationServer
     image: freemoon99/disaster-notification-server:latest
     ports:
-      - "8082:8080"
+      - "8082:8082"
