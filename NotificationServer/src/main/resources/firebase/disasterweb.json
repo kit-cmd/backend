@@ -1,1 +1,1 @@
-${{secrets.disasterwebJson}}
+${{secrets.DISASTERWEB_JSON}}
