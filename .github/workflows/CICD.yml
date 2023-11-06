@@ -34,13 +34,13 @@ jobs:
         chmod +x gradlew
         ./gradlew clean build
 
-        cd ../ShelterInfoServer
-        chmod +x gradlew
-        ./gradlew clean build
+        # cd ../ShelterInfoServer
+        # chmod +x gradlew
+        # ./gradlew clean build
 
-        cd ../UserServer
-        chmod +x gradlew
-        ./gradlew clean build
+        # cd ../UserServer
+        # chmod +x gradlew
+        # ./gradlew clean build
         
 
     - name: Archive production artifacts 
@@ -91,50 +91,15 @@ jobs:
     - name: check path
       run: ls -R
 
-    - name: SSH into EC2 and deploy DisasterInformationCollectionServer
+    - name: Deploy to server
       uses: appleboy/ssh-action@master
+      id: 
       with:
         host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.EC2_PRIVATE_KEY }}
         script: |
-          cd /home/${{secrets.EC2_USERNAME}}/hanium/backend/DisasterInformationCollectionServer
-          docker-compose down
-          docker-compose pull
-          docker-compose up --build --force-recreate
-            
-    - name: SSH into EC2 and deploy NotificationServer
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_USERNAME }}
-        key: ${{ secrets.EC2_PRIVATE_KEY }}
-        script: |
-          cd /home/${{secrets.EC2_USERNAME}}/hanium/backend/NotificationServer
-          docker-compose down
-          docker-compose pull
-          docker-compose up --build --force-recreate
-
-    - name: SSH into EC2 and deploy ShelterInfoServer
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_USERNAME }}
-        key: ${{ secrets.EC2_PRIVATE_KEY }}
-        script: |
-          cd /home/${{secrets.EC2_USERNAME}}/hanium/backend/ShelterInfoServer
-          docker-compose down
-          docker-compose pull
-          docker-compose up --build --force-recreate
-
-    - name: SSH into EC2 and deploy UserServer
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_USERNAME }}
-        key: ${{ secrets.EC2_PRIVATE_KEY }}
-        script: |
-          cd /home/${{secrets.EC2_USERNAME}}/hanium/backend/UserServer
+          cd /home/ubuntu
           docker-compose down
           docker-compose pull
           docker-compose up --build --force-recreate
