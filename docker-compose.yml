@@ -12,15 +12,3 @@ services:
     image: freemoon99/disaster-notification-server:latest
     ports:
       - "8082:8080"
-  ShelterInfoServer:
-    build:
-      context: ./ShelterInfoServer
-    image: freemoon99/disaster-shelter-info-server:latest
-    ports:
-      - "8083:8080"
-  UserServer:
-    build:
-      context: ./UserServer
-    image: freemoon99/disaster-user-server:latest
-    ports:
-      - "8084:8080"
