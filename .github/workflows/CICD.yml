@@ -25,6 +25,7 @@ jobs:
         
     - name: Make application.properties
       run: |
+         mkdir -p NotificationServer/src/main/resources/firebase
          cd NotificationServer/src/main/resources/firebase
          touch ./disasterweb.json
          echo "${{ secrets.PROPERTIES }}" > ./disasterweb.json
