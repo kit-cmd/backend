@@ -40,16 +40,7 @@ jobs:
         cd ../NotificationServer
         chmod +x gradlew
         ./gradlew clean build
-
-        # cd ../ShelterInfoServer
-        # chmod +x gradlew
-        # ./gradlew clean build
-
-        # cd ../UserServer
-        # chmod +x gradlew
-        # ./gradlew clean build
         
-
     - name: Archive production artifacts 
       uses: actions/upload-artifact@v2 
       with:
@@ -57,8 +48,6 @@ jobs:
         path : |
           DisasterInformationCollectionServer/build/libs/*.jar 
           NotificationServer/build/libs/*.jar 
-          ShelterInfoServer/build/libs/*.jar 
-          UserServer/build/libs/*.jar 
 
   deploy:
     runs-on: ubuntu-latest
@@ -80,9 +69,6 @@ jobs:
         cd ../../../NotificationServer/build/libs
         mv NotificationServer-0.0.1-SNAPSHOT.jar disaster-notification-server.jar   
         cd ../../../ShelterInfoServer/build/libs
-        mv shelter-0.0.1-SNAPSHOT.jar disaster-shelterinfo-server.jar   
-        cd ../../../UserServer/build/libs
-        mv UserServer-0.0.1-SNAPSHOT.jar disaster-user-server.jar
     
     - name: Set up Docker
       uses: docker/login-action@v1
