@@ -23,10 +23,18 @@ jobs:
         java-version: '11'
         distribution: 'zulu'
         
-    - name: Make application.properties
+    - name: Make Json main
       run: |
          mkdir -p NotificationServer/src/main/resources/firebase
          cd NotificationServer/src/main/resources/firebase
+         touch ./disasterweb.json
+         echo "${{ secrets.PROPERTIES }}" > ./disasterweb.json
+      shell: bash
+      
+    - name: Make Json test
+      run: |
+         mkdir -p NotificationServer/src/test/resources/firebase
+         cd NotificationServer/src/test/resources/firebase
          touch ./disasterweb.json
          echo "${{ secrets.PROPERTIES }}" > ./disasterweb.json
       shell: bash
