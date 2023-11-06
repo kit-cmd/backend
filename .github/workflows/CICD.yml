@@ -22,6 +22,13 @@ jobs:
       with:
         java-version: '11'
         distribution: 'zulu'
+        
+    - name: Make application.properties
+      run: |
+         cd NotificationServer/src/main/resources/firebase
+         touch ./disasterweb.json
+         echo "${{ secrets.PROPERTIES }}" > ./disasterweb.json
+      shell: bash
 
     
     - name: Build and test
