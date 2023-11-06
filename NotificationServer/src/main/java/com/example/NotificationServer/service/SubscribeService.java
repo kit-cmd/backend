@@ -52,19 +52,15 @@ public class SubscribeService {
                     .setBody(msg) // Use the "msg" as the notification body
                     .build();
 
-            List<String> tokens = notificationService.getToken();
-            for (String token : tokens) {
-                Message notificationMessage = Message.builder()
-                        .setNotification(notification)
-                        .setToken(token)
-                        .build();
-
-                try {
-                    String response = FirebaseMessaging.getInstance().send(notificationMessage);
-                    log.info("알림을 정상적으로 전송했습니다.: {}", response);
-                } catch (FirebaseMessagingException e) {
-                    log.error("알림 전송 실패: {}", e.getMessage());
-                }
+            Message notificationMessage = Message.builder()
+                    .setNotification(notification)
+                    .setTopic("change")
+                    .build();
+            try {
+                String response = FirebaseMessaging.getInstance().send(notificationMessage);
+                log.info("알림을 정상적으로 전송했습니다.: {}", response);
+            } catch (FirebaseMessagingException e) {
+                log.error("알림 전송 실패: {}", e.getMessage());
             }
         } catch (JSONException e) {
             log.error("Error parsing JSON data: {}", e.getMessage());

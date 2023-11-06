@@ -1,5 +1,6 @@
 package com.example.NotificationServer.controller;
 
+import com.example.NotificationServer.dto.FCMNotificationRequestDto;
 import com.example.NotificationServer.service.NotificationService;
 import com.example.NotificationServer.service.SubscribeService;
 import lombok.extern.slf4j.Slf4j;
@@ -37,5 +38,11 @@ public class NotificationController {
         notificationService.delete(token);
         log.info("삭제:{}", token);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/post")
+    public String sendNotification (@RequestBody FCMNotificationRequestDto requestDto){
+        log.info(String.valueOf(requestDto));
+        return notificationService.sendMessage(requestDto);
     }
 }
