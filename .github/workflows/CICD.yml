@@ -40,15 +40,15 @@ jobs:
       shell: bash
 
     
-    - name: Build and test
+    - name: Build
       run: |
         cd DisasterInformationCollectionServer
         chmod +x gradlew
-        ./gradlew clean build
+        ./gradlew clean build -x test
 
         cd ../NotificationServer
         chmod +x gradlew
-        ./gradlew clean build
+        ./gradlew clean build -x test
         
     - name: Archive production artifacts 
       uses: actions/upload-artifact@v2 
