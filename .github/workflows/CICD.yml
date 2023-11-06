@@ -77,7 +77,6 @@ jobs:
         mv DisasterInformationCollectionServer-0.0.1-SNAPSHOT.jar disaster-info-collection-server.jar   
         cd ../../../NotificationServer/build/libs
         mv NotificationServer-0.0.1-SNAPSHOT.jar disaster-notification-server.jar   
-        cd ../../../ShelterInfoServer/build/libs
     
     - name: Set up Docker
       uses: docker/login-action@v1
