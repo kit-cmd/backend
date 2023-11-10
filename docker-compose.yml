@@ -1,12 +1,16 @@
 version: '3'
 services:
   DisasterInformationCollectionServer:
+    build:
+      context: ./DisasterInformationCollectionServer
     image: freemoon99/disaster-information-collection-server:latest
     ports:
       - "8081:8081"
     depends_on:
       - redis
   NotificationServer:
+    build:
+      context: ./NotificationServer
     image: freemoon99/disaster-notification-server:latest
     ports:
       - "8082:8082"
