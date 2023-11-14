@@ -80,4 +80,4 @@ jobs:
           cd /home/ubuntu
           docker-compose down
           docker-compose pull
-          docker-compose up --build --force-recreate
+          docker-compose up --force-recreate
